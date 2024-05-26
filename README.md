@@ -4,7 +4,7 @@ In this game, you control a blue square with the 'w' 'a' 's' 'd' keys. You can p
 
 I wrote this game to learn how to use object-oriented programming in python, to practice quickly planning and executing on an idea for a program, and to practice transforming ideas into a working prototype quickly, modularly, and iteratively.
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://www.loom.com/share/b7b8115639d64e6ebe9fd81ab461c452?sid=3ed46705-16cf-4169-b457-974bd9e83135)
 
 # Development Environment
 

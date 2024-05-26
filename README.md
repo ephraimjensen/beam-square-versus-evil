@@ -16,7 +16,7 @@ I programmed this game in Python, using the Pygame module heavily. I also used t
 # Useful Websites
 
 * [Geeks for Geeks](https://www.geeksforgeeks.org/pygame-tutorial/)
-* [Naukri](https://www.naukri.com/code360/library/display-the-images-with-pygame)
+* [Naukri (Display Image Tutorial)](https://www.naukri.com/code360/library/display-the-images-with-pygame)
 * [PyGame Wiki](https://www.pygame.org/wiki/tutorials)
 * [ChatGPT](https://chatgpt.com)
 

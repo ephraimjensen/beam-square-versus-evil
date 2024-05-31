@@ -29,8 +29,7 @@ all_sprites.add(top_wall)
 all_sprites.add(right_wall)
 all_sprites.add(bottom_wall)
 
-enemies = pygame.sprite.Group()
-
+all_enemies = pygame.sprite.Group()
 
 #debugging mask control
 no_spawn_enemy_mask_on = False
@@ -43,7 +42,7 @@ spawn_interval = 2
 #define background color -- remove this later
 background_color = (0,0,0)
 
-#define bool to help with attack cooldown
+#define bool to help with attack cooldown 
 is_first_attack = True
 attack_ready = True
 attack_duration = 2
@@ -145,7 +144,7 @@ while not exit:
                           , player_character.width
                           )
         all_sprites.add(new_enemy)
-        enemies.add(new_enemy)
+        all_enemies.add(new_enemy)
         spawn_time = time.time()
 
 
@@ -165,36 +164,16 @@ while not exit:
 
     #ChatGPT generated the following 4 lines in repsonse to me describing an error that my sprite removal method was having
     if 'player_attack' in locals():
-        collided_enemies = pygame.sprite.spritecollide(player_attack, enemies, dokill=True)
+        collided_enemies = pygame.sprite.spritecollide(player_attack, all_enemies, dokill=True)
         for enemy in collided_enemies:
             all_sprites.remove(enemy)
 
     
-    for enemy in enemies:
+    for enemy in all_enemies:
         if player_character.rect.colliderect(enemy.rect):
             you_died=True
+        enemy.update(player_character.rect.x, player_character.rect.y)
             
-
-    #my old way to remove sprites
-    # kill_enemy = False
-    # kill_player = False
-
-    # for enemy in enemies:
-    #     if player_character.rect.colliderect(enemy.rect):
-    #         kill_player = True
-    #     if 'player_attack' in locals():
-    #         if player_attack.rect.colliderect(enemy.rect):
-    #             kill_enemy = True
-
-    #     if kill_enemy:
-    #         all_sprites.remove(enemy)
-    #         enemies.remove(enemy)
-
-        # if kill_player:
-        #     all_sprites.remove(player_character)
-        #     exit = True
-        #     del player_character
-
     while you_died:
         #handles quitting
         
@@ -215,6 +194,7 @@ while not exit:
     # Fill the screen with black
     window.fill(background_color)
 
+    
     all_sprites.draw(window)
    
     pygame.display.flip()

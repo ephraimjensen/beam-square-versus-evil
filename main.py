@@ -75,33 +75,9 @@ while not exit:
         if event.type == pygame.QUIT:
             exit = True
 
-
     keys = pygame.key.get_pressed()
 
-    #moves the player
-    if keys[pygame.K_w] and not top_collide:
-        player_character.rect.y -= player_character.speed
-        player_character.facing = "top"
-        if keys[pygame.K_a]:
-            player_character.facing = "left"
-        if keys[pygame.K_d]:
-            player_character.facing = "right"
-
-    if keys[pygame.K_a] and not left_collide:
-        player_character.rect.x -= player_character.speed
-        player_character.facing = "left"
-
-    if keys[pygame.K_s] and not bottom_collide:
-        player_character.rect.y += player_character.speed
-        player_character.facing = "bottom"
-        if keys[pygame.K_a]:
-            player_character.facing = "left"
-        if keys[pygame.K_d]:
-            player_character.facing = "right"
-
-    if keys[pygame.K_d] and not right_collide:
-        player_character.rect.x += player_character.speed
-        player_character.facing = "right"
+    player_character.update(top_collide, left_collide, right_collide, bottom_collide)
 
     if (is_first_attack or time.time() - attack_creation_time >= attack_cooldown + attack_duration):
         attack_ready = True
@@ -124,7 +100,14 @@ while not exit:
 
     # Check if attack needs to be removed -- ChatGPT Wrote these 5 lines after I showed it how I was trying to delete the attack I have modified the code a little after I copied it and adjusted other code to integrate what I have learned from this code chunk
     if 'player_attack' in locals():
-        if time.time() >= attack_creation_time + attack_duration:
+        #slow the player when attack is on
+        player_character.speed = 3
+        player_character.diagonal_speed = (player_character.speed / math.sqrt(2))
+
+        if time.time() >= attack_creation_time + attack_duration or not keys[pygame.K_SPACE]:
+            #return to normal speed after attack ends
+            player_character.speed = 5
+            player_character.diagonal_speed = (player_character.speed / math.sqrt(2))
             all_sprites.remove(player_attack)
             del player_attack  # Remove the reference to the attack sprite
         else:

@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import math
 
 class Square(pygame.sprite.Sprite):
     def __init__(self, screen_width, screen_height):
@@ -18,9 +19,50 @@ class Square(pygame.sprite.Sprite):
         self.rect.y = (screen_height / 2) - (self.width / 2)
 
         self.speed = 5
+        self.diagonal_speed = (self.speed / math.sqrt(2))
 
     def print_direction(self):
         print(self.facing)
 
     def change_color(self, new_color):
         self.image.fill(new_color)
+
+    def update(self, top_collide, left_collide, right_collide, bottom_collide):
+        keys = pygame.key.get_pressed()
+
+        #moves the player
+        if keys[pygame.K_w] and keys[pygame.K_a] and not top_collide and not left_collide:
+            self.rect.y -= self.diagonal_speed
+            self.rect.x -= self.diagonal_speed
+            self.facing = "left"
+
+        elif keys[pygame.K_w] and keys[pygame.K_d] and not top_collide and not right_collide:
+            self.rect.y -= self.diagonal_speed
+            self.rect.x += self.diagonal_speed
+            self.facing = "right"
+
+        elif keys[pygame.K_s] and keys[pygame.K_a] and not bottom_collide and not left_collide:
+            self.rect.y += self.diagonal_speed
+            self.rect.x -= self.diagonal_speed
+            self.facing = "left"
+
+        elif keys[pygame.K_s] and keys[pygame.K_d] and not bottom_collide and not right_collide:
+            self.rect.y += self.diagonal_speed
+            self.rect.x += self.diagonal_speed
+            self.facing = "right"
+
+        elif keys[pygame.K_w] and not top_collide:
+            self.rect.y -= self.speed
+            self.facing = "top"
+
+        elif keys[pygame.K_a] and not left_collide:
+            self.rect.x -= self.speed
+            self.facing = "left"
+
+        elif keys[pygame.K_s] and not bottom_collide:
+            self.rect.y += self.speed
+            self.facing = "bottom"
+
+        elif keys[pygame.K_d] and not right_collide:
+            self.rect.x += self.speed
+            self.facing = "right"

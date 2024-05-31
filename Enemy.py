@@ -2,6 +2,7 @@ import pygame
 import random
 import math
 from pygame.locals import *
+from Trig import *
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self,screen_width, screen_height, wall_thickness, player_x_position, player_y_position, player_width, player_height):
@@ -63,41 +64,12 @@ class Enemy(pygame.sprite.Sprite):
 
             return [chosen_x_position, chosen_y_position]
         
-    def do_trig(self, character_speed, x_difference, y_difference):
-        
-        #sides a and b are absolute value of distance to player a is x. b is y.
-        triangle_side_a = abs(x_difference)
-        triangle_side_b = abs(y_difference)
-        # triangle_side_c = math.sqrt(triangle_side_a**2 + triangle_side_b**2)
-
-        triangle_angle_A = math.atan(triangle_side_a / triangle_side_b)
-        triangle_angle_B = math.atan(triangle_side_b / triangle_side_a)
-
-        # print(triangle_side_c)
-
-        # print(triangle_angle_A)
-        # print(triangle_angle_B)
-
-        movement = character_speed
-
-        move_triangle_side_c = movement
-        #how far to move x
-        move_triangle_side_a = round(move_triangle_side_c * (math.sin(triangle_angle_A)))
-        #how far to move y
-        move_triangle_side_b = round(move_triangle_side_c * (math.sin(triangle_angle_B)))
-
-        return [move_triangle_side_a, move_triangle_side_b]
-
+    
         
     def update(self, player_x_position, player_y_position):
 
         x_difference = player_x_position - self.rect.x
         y_difference = player_y_position - self.rect.y
-        
-        move_vector = [0,0]
-
-        abs_x = abs(x_difference)
-        abs_y = abs(y_difference)
         
         move_negative_x = False
         move_negative_y = False
@@ -105,22 +77,15 @@ class Enemy(pygame.sprite.Sprite):
         if x_difference < 0:
             move_negative_x = True
         if y_difference < 0:
-            move_negative_y = True
-
-        # if y_difference > 0 and x_difference < 0:
-        #     move_negative_x = False
-        #     move_negative_y = True
-        
+            move_negative_y = True        
         
         if x_difference != 0 and y_difference !=0:
-            move_vector = self.do_trig(self.speed, x_difference, y_difference)
+            move_vector = do_trig(self.speed, x_difference, y_difference)
         else:
             if x_difference == 0:
                 move_vector = [0, 5]
             if y_difference == 0:
-                move_vector = [5, 0]
-
-        
+                move_vector = [5, 0]        
 
         if move_negative_x:
             self.rect.x += (-1 * move_vector[0])

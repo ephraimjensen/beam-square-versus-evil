@@ -10,7 +10,6 @@ I wrote this game to learn how to use object-oriented programming in python, to 
 
 I used Visual Studio Code to develop this program. I consulted multiple online resources including ChatGPT aid me in learning to make this game.
 
-{Describe the programming language that you used and any libraries.}
 I programmed this game in Python, using the Pygame module heavily. I also used the time and random modules.
 
 # Useful Websites

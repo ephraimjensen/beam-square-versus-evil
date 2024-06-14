@@ -66,3 +66,15 @@ class Square(pygame.sprite.Sprite):
         elif keys[pygame.K_d] and not right_collide:
             self.rect.x += self.speed
             self.facing = "right"
+
+
+
+
+# def __init__(self, pos):
+#     walls.append(self)
+#     self.rect = pygame.Rect(pos[0], pos[1], 16, 16)
+#     self.image = pygame.image.load("/path/to/image_file.png")
+# and then, on your game loop, instead of drawing a rect, call the blit method of the "screen" (which is a pygame.Surface object) passing the image:
+
+# for jewel in jewels:
+#     screen.blit(jewel.image, jewel.rect)
